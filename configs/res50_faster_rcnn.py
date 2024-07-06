@@ -12,109 +12,14 @@ def args_faster_rcnn():
     
     parser.add_argument('--memo', default= 'hello')
 
-    #! preprocessing w.r.t keypoint
-    parser.add_argument('--occ_k', default=12, type=int, help='preprocess w.r.t # of occluded keypoints')
-
-    #! rezie
-    parser.add_argument('--disable_resize', action='store_false', default=True)
-
-    ###! DIL
-    parser.add_argument('--DIL', action='store_true', default=False)
-    #! Domain Guided Normalization
-    parser.add_argument('--DGN', action='store_true', default=False) 
-    #! Separation Loss
-    parser.add_argument('--SEP', action='store_true', default=False) 
-    #! DGN => IN
-    parser.add_argument('--IN', action='store_true', default=False) 
-    parser.add_argument('--IGN', action='store_true', default=False) 
     parser.add_argument('--scale_sep', default=1.0, type=float, help='scale of fidelity loss')
     parser.add_argument('--scale_dom', default=1.0, type=float, help='scale of fidelity loss')
     parser.add_argument('--scalar_dom', default=1.0, type=float, help='scale of fidelity loss')
     
-    
-    ###! FAT
-    parser.add_argument('--FAT', action='store_true', default=False, help='apply FAT')
-    parser.add_argument('--FWDL_CLS', action='store_true', default=False, help='Fidelity Weighted Detection Loss')
-    parser.add_argument('--FWDL_REG', action='store_true', default=False, help='Fidelity Weighted Detection Loss')
-    parser.add_argument('--FGCL', action='store_true', default=False, help='Fidelity Guided Confidence Loss')
-    parser.add_argument('--FWFU', action='store_true', default=False, help='Fidelity Weighted Feature Update')
-    
-    parser.add_argument('--use_sigmoid', action='store_true', default=False, help='')
-    #! classification loss type
-    parser.add_argument('--cls_loss_type', choices=['sigmoid', 'softmax', 'softlabel'], default='sigmoid', type=str)
-    
-    #! Brisque
-    parser.add_argument('--direct', action='store_true', default=False, help='')
-    
-    parser.add_argument('--brisque', action='store_true', default=False)
     parser.add_argument('--brisque_k', type=float, default=1.0)
-    parser.add_argument('--brisque_gt', action='store_true', default=False)
     parser.add_argument('--scale_fid', default=10.0, type=float, help='scale of fidelity loss')
     
-    
-    parser.add_argument('--scale_fid_penalty', default=10.0, type=float, help='scale of fidelity loss')
-    parser.add_argument('--penalty', action='store_true', default=False, help='Fidelity Weighted Feature Update')
-    parser.add_argument('--k_sharpness', default=1.0, type=float, help='k_sharpness')
-    parser.add_argument('--k_contrast', default=1.0, type=float, help='k_contrast')
-
-    
-    parser.add_argument('--fidelity_averaging', action='store_true', default=False, help='')
-    #! contrast
-    parser.add_argument('--contrast', action='store_true', default=False)
-    parser.add_argument('--contrast_gt', action='store_true', default=False)
-    parser.add_argument('--contrast_use_prob', action='store_true', default=False)
-    parser.add_argument('--cont_gt_k', default=0., type=float)
-    parser.add_argument('--scale_fid_contrast', default=1.0, type=float, help='scale of fidelity loss')
-    #! sharpness
-    parser.add_argument('--sharpness', action='store_true', default=False)
-    parser.add_argument('--sharpness_gt', action='store_true', default=False)
-    parser.add_argument('--sharpness_use_prob', action='store_true', default=False)
-    parser.add_argument('--sharp_gt_k', default=0., type=float)
-    parser.add_argument('--scale_fid_sharpness', default=1.0, type=float, help='scale of fidelity loss')
-    #! occlusion
-    parser.add_argument('--occlusion', action='store_true', default=False)
-    parser.add_argument('--naive_occ', action='store_true', default=False)
-    parser.add_argument('--occlusion_gt', action='store_true', default=False)
-    parser.add_argument('--occlusion_use_prob', action='store_true', default=False)
-    parser.add_argument('--threshold_occ', default=22, type=int)
-    parser.add_argument('--tau', default=1.0, type=float, help='tau')
-    parser.add_argument('--scale_fid_occlusion', default=1.0, type=float, help='scale of fidelity loss')
-    
-    
-    parser.add_argument('--tsne', action='store_true', default=False)
-    
-    parser.add_argument('--exp2', action='store_true', default=False)
-    parser.add_argument('--exp3', action='store_true', default=False)
-    parser.add_argument('--exp4', action='store_true', default=False) 
-    parser.add_argument('--exp5', action='store_true', default=False)
-    parser.add_argument('--exp6', action='store_true', default=False)
-    parser.add_argument('--exp7', action='store_true', default=False)
-    parser.add_argument('--FAT_exp', action='store_true', default=False, help='apply FAT')
-    parser.add_argument('--FAT_seperate_mean', action='store_true', default=False) 
-    parser.add_argument('--FAT_seperate', action='store_true', default=False) 
-    parser.add_argument('--FAT_underfit', action='store_true', default=False) 
-    parser.add_argument('--FAT_underfit_sampling', action='store_true', default=False) 
-    parser.add_argument('--pseudo', action='store_true', default=False) 
-    parser.add_argument('--FAT_seperate_gt', action='store_true', default=False) 
-    parser.add_argument('--FAT_occ', action='store_true', default=False) 
-    parser.add_argument('--FAT_area', action='store_true', default=False) 
-    parser.add_argument('--FAT_occ_area', action='store_true', default=False) 
-    parser.add_argument('--FAT_otherfactor', action='store_true', default=False) 
-    parser.add_argument('--FAT_factor', type=str, default=None,
-                        choices=['sharp', 'sharp_g', 'blur', 'blur_g', 'contrast', 'area'])   
-    parser.add_argument('--FAT_mapping_func', type=str, default=None,
-                        choices=['cosine', 'sigmoid5', 'sigmoid10', 'exponential']) 
-    parser.add_argument('--FAT_usegt', action='store_true', default=False) 
-    parser.add_argument('--FAT_occ_ce', action='store_true', default=False) 
-    parser.add_argument('--FAT_otherfactor_mul', action='store_true', default=False)
-
-    parser.add_argument('--DSDI', action='store_true', default=False)
-
-    parser.add_argument('--oim_fidelity', action='store_true', default=False)
-
-    
-    parser.add_argument('--fid_loss', default='l1', type=str, help='fidelity loss : l1 or l2')
-       # Data
+      # Data
     parser.add_argument('--dataset',
                         help='training dataset', type=str, default='JTA',
                         choices=['JTA'])
