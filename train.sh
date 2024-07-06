@@ -1,0 +1,17 @@
+CUDA_VISIBLE_DEVICES=9 python3 -B scripts/train.py  \
+        --path ./logs/ \
+        --batch_size 4 \
+        --scale_sep 1.0 \
+        --scale_dom 0.1 \
+        --scalar_dom 40.0 \
+        --brisque_k 0.5\
+        --scale_fid 10\
+        --lr_decay_step 3 \
+        --lr 0.003 \
+        --epochs 16 \
+        --lr_decay_gamma 0.1 \
+        --w_RCNN_loss_bbox 10.0 \
+        --w_OIM_loss_oim 1.0 \
+        --oim_scalar 30.0 \
+        --cls_scalar 1.0 \
+        --cls_weight 1.0 ;
